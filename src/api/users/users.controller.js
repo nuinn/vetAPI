@@ -4,9 +4,11 @@ async function getById(req, res) {
   const { id } = req.params;
   const user = await usersService.getById({ id });
   if (!user) {
-    return res.json({ error: 'No such user exists.' });
+    res.status(404);
+    res.json({ error: 'No such user exists.' });
+    return;
   }
-  return res.json(user);
+  res.json({ msg: 'User successfully fetched', user });
 }
 
 export {

@@ -1,8 +1,13 @@
 import * as clientsRepository from './clients.repository.js';
 
-async function getAll() {
-  const allClients = await clientsRepository.getAll();
+async function getAll({ skip, limit }) {
+  const allClients = await clientsRepository.getAll({ skip, limit });
   return allClients;
+}
+
+async function getDbSize() {
+  const dbSize = await clientsRepository.getDbSize();
+  return dbSize;
 }
 
 async function getByDocumentNumber({ documentNumber }) {
@@ -42,6 +47,7 @@ async function remove(id) {
 
 export {
   getAll,
+  getDbSize,
   getByDocumentNumber,
   post,
   getById,

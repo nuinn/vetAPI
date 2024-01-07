@@ -1,10 +1,14 @@
 import Router from 'express';
 import * as clientsController from './clients.controller.js';
+import isAdmin from '../../middlewares/isAdmin.js';
 
 const router = Router();
 
 // getAll
-router.get('/all', clientsController.getAll);
+router.get('/all', isAdmin, clientsController.getAll);
+
+// getDbSize
+router.get('/dbSize', clientsController.getDbSize);
 
 // getByDocumentNumber
 router.get('/document/:number', clientsController.getByDocumentNumber);

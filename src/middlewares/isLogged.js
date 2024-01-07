@@ -10,6 +10,8 @@ function isLogged(req, res, next) {
   const publicRoutes = [
     '/auth/login',
     '/auth/register',
+    '/auth/confirm',
+    '/api-docs',
   ];
   const isPublicRoute = publicRoutes.some((publicRoute) => req.url.startsWith(publicRoute));
   if (isPublicRoute) {
@@ -21,10 +23,10 @@ function isLogged(req, res, next) {
     unauthorized(res);
     return;
   }
-  const secretWord = 'isASecret';
+  const { TOKEN_SECRET_WORD } = process.env;
   // .verify expects three parameters: the token, the secretWord and a callback with two parameters:
   // first the function in case of error and secondly the function in case of success.
-  jwt.verify(token, secretWord, async (error, payload) => {
+  jwt.verify(token, TOKEN_SECRET_WORD, async (error, payload) => {
     if (error) {
       console.error('jwt error');
       unauthorized(res);

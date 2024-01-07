@@ -1,8 +1,13 @@
 import clientModel from './clients.model.js';
 
-async function getAll() {
-  const allClients = await clientModel.find({}).lean();
+async function getAll({ skip, limit }) {
+  const allClients = await clientModel.find({}).skip(skip).limit(limit).lean();
   return allClients;
+}
+
+async function getDbSize() {
+  const dbSize = await clientModel.countDocuments();
+  return dbSize;
 }
 
 async function getByDocumentNumber({ documentNumber }) {
@@ -44,6 +49,7 @@ async function remove(id) {
 
 export {
   getAll,
+  getDbSize,
   getByDocumentNumber,
   post,
   getById,

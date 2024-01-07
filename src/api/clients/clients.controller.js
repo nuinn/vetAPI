@@ -2,9 +2,16 @@
 import * as clientsService from './clients.service.js';
 
 async function getAll(req, res) {
-  const clients = await clientsService.getAll();
+  const { query } = req;
+  const { skip, limit } = query;
+  const clients = await clientsService.getAll({ skip, limit });
   res.json(clients);
   console.log(req.user);
+}
+
+async function getDbSize(req, res) {
+  const dbSize = await clientsService.getDbSize();
+  res.json(dbSize);
 }
 
 // params is a required entry displayed with :number in the router
@@ -76,6 +83,7 @@ async function remove(req, res) {
 
 export {
   getAll,
+  getDbSize,
   getByDocumentNumber,
   post,
   getById,

@@ -15,8 +15,14 @@ async function getByUsername({ username }) {
   return user;
 }
 
+async function confirm({ username }) {
+  const user = await userModel.findOneAndUpdate({ username }, { confirmed: true });
+  return user;
+}
+
 export {
   getById,
   create,
   getByUsername,
+  confirm,
 };
