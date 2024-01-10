@@ -5,7 +5,9 @@ import users from './users.js';
 const docs = {
   ...basicInfo,
   ...components,
-  ...users,
+  paths: {
+    ...users.paths,
+  },
 };
 
 export default docs;
